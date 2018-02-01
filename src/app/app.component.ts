@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SubjectSubscriber } from '../model/subject-subscriber.model';
 import { SubjectEnum } from '../enum/subject.enum';
 import { SubscriberInterface } from '../interface/SubscriberInterface';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -28,9 +29,12 @@ export class AppComponent implements SubscriberInterface {
   }
 
   onUnSubscribeClick() {
-    this.subscribers = this.subscribers.filter(
-      item => !(item.subject === SubjectEnum.FrontEnd && item.subscriber === this)
-    );
+    const subjectSubscriber: SubjectSubscriber = {
+      subject: SubjectEnum.FrontEnd,
+      subscriber: this
+    };
+
+    _.remove(this.subscribers, subjectSubscriber);
 
     console.log(this.subscribers.length);
   }
