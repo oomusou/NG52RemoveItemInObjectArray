@@ -28,15 +28,9 @@ export class AppComponent implements SubscriberInterface {
   }
 
   onUnSubscribeClick() {
-    const index = this.subscribers.findIndex(
-      item => item.subject === SubjectEnum.FrontEnd && item.subscriber === this
+    this.subscribers = this.subscribers.filter(
+      item => !(item.subject === SubjectEnum.FrontEnd && item.subscriber === this)
     );
-
-    if (index === -1) {
-      return;
-    }
-
-    this.subscribers.splice(index, 1);
 
     console.log(this.subscribers.length);
   }
